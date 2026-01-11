@@ -118,7 +118,22 @@ public class Parser {
     
     private Statement varDeclarationStatement() {
         Token type = advance();
-        Token name = consume(TokenType.IDENTIFIER, "Expect variable name");
+        
+        // Check if next token is an identifier followed by = or ;
+        if (!check(TokenType.IDENTIFIER)) {
+            // Not a variable declaration, backtrack
+            current--;
+            return expressionStatement();
+        }
+        
+        Token name = advance();
+        
+        // Check if this is actually a variable declaration
+        if (!check(TokenType.EQUAL) && !check(TokenType.SEMICOLON)) {
+            // This is not a variable declaration, backtrack
+            current -= 2;
+            return expressionStatement();
+        }
         
         Expression initializer = null;
         if (match(TokenType.EQUAL)) {
