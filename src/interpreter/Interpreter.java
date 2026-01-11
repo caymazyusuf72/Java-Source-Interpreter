@@ -154,9 +154,6 @@ public class Interpreter implements Visitor<Value> {
             return new Value(Value.Type.VOID, null);
         }
         
-        // Regular method call
-        Value calleeValue = evaluate(expr.callee);
-        
         // If callee is a Get expression, it's a method call on an object
         if (expr.callee instanceof Expression.Get) {
             Expression.Get get = (Expression.Get) expr.callee;
