@@ -1,0 +1,21 @@
+package lexer;
+
+public class Token {
+    public final TokenType type;
+    public final String lexeme;
+    public final Object literal;
+    public final int line;
+    
+    public Token(TokenType type, String lexeme, Object literal, int line) {
+        this.type = type;
+        this.lexeme = lexeme;
+        this.literal = literal;
+        this.line = line;
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Token[%s, '%s', %s, line:%d]", 
+            type, lexeme, literal != null ? literal : "null", line);
+    }
+}
