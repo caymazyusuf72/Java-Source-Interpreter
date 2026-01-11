@@ -32,8 +32,9 @@ public class Parser {
             // Try to parse as statement and wrap it
             Statement stmt = statement();
             // For top-level statements, we'll handle them differently in interpreter
+            final Statement finalStmt = stmt;
             return new Declaration.Var(null, null, null) {
-                public Statement stmt = stmt;
+                public Statement stmt = finalStmt;
                 @Override
                 public <R> R accept(interpreter.Visitor<R> visitor) {
                     return stmt.accept(visitor);
